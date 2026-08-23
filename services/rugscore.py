@@ -68,6 +68,24 @@ async def fetch_goplus_sol(ca: str) -> dict:
             return {}
 
 
+def _sum_top10_holder_pct(sec: dict) -> float:
+    """Sum the top-10 entries in GoPlus's 'holders' array (each holder's
+    'percent' is a decimal fraction, e.g. '0.023' = 2.3%).
+    Returns 0.0 if the holders array isn't present in the response.
+    """
+    holders = sec.get("holders") or []
+    if not isinstance(holders, list):
+        return 0.0
+    top10 = holders[:10]
+    total = 0.0
+    for h in top10:
+        try:
+            total += float(h.get("percent", 0) or 0)
+        except (TypeError, ValueError):
+            continue
+    return total * 100
+
+
 def parse_evm_security(sec: dict, pair: dict) -> dict:
     """Extract key security signals from GoPlus EVM response."""
     liq = float(pair.get("liquidity", {}).get("usd", 0) or 0)
@@ -85,7 +103,7 @@ def parse_evm_security(sec: dict, pair: dict) -> dict:
         "proxy_contract":       sec.get("is_proxy", "0") == "1",
         "self_destruct":        sec.get("self_destruct", "0") == "1",
         "external_call":        sec.get("external_call", "0") == "1",
-        "top10_holder_pct":     float(sec.get("holder_count", 0) or 0),
+        "top10_holder_pct":     _sum_top10_holder_pct(sec),
         "creator_pct":          float(sec.get("creator_percent", 0) or 0) * 100,
         "lp_locked":            sec.get("lp_holder_analysis", [{}])[0].get("is_locked", False) if sec.get("lp_holder_analysis") else False,
         "lp_locked_pct":        float(sec.get("lp_holder_analysis", [{}])[0].get("percent", 0) or 0) * 100 if sec.get("lp_holder_analysis") else 0,

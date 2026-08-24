@@ -1,10 +1,17 @@
+<div align="center">
+
 # Daemonbot 🤖⚡
 
-Multi-chain AI crypto Telegram bot. Inspired by RickBurpBot + Phanes.
+**Multi-chain AI crypto Telegram bot — price/scan, rug & security checks, conviction leaderboards**
 
-Built by **MR SYCO** ([@Sycosmile](https://github.com/Sycosmile)) — 3MTT Cybersecurity fellow, bug bounty hunter.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org)
+[![Tests](https://img.shields.io/badge/tests-80%20passing-brightgreen)](.)
+[![Made by Mr Syco](https://img.shields.io/badge/made%20by-Mr%20Syco-6E9EFF)](https://github.com/Sycosmile)
 
-[GitHub](https://github.com/Sycosmile) · [X](https://x.com/Sycosmile)
+</div>
+
+Inspired by RickBurpBot + Phanes.
 
 ---
 
@@ -92,8 +99,8 @@ Mention `@YourBotUsername`, reply to one of its messages, or just DM it.
 
 ### 1. Clone & install
 ```bash
-git clone <your-repo>
-cd daemonbot
+git clone https://github.com/Sycosmile/Daemonbot.git
+cd Daemonbot
 pip install -r requirements.txt
 ```
 
@@ -104,7 +111,7 @@ pip install -r requirements.txt
 ### 3. Configure env
 ```bash
 cp .env.example .env
-# Edit .env with your BOT_TOKEN and ANTHROPIC_API_KEY
+# Edit .env with your BOT_TOKEN and GROQ_API_KEY
 ```
 
 ### 4. Run
